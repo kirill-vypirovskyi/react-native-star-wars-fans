@@ -26,36 +26,33 @@ export const MainScreen = () => {
     showToast(ErrorMessage.STORAGE);
   }
 
-  const downloadData = useCallback(
-    async (query: string) => {
-      setLoading(true);
+  const downloadData = async (query: string) => {
+    setLoading(true);
 
-      try {
-        const resultFromApi = await getPeople(page.current, query);
+    try {
+      const resultFromApi = await getPeople(page.current, query);
 
-        const urlsToNames = await Promise.all(
-          resultFromApi.results.map(async (person) => {
-            const planet = await getPlanet(person.homeworld);
-            const species = await getSpeciesNames(person.species as string[]);
+      const urlsToNames = await Promise.all(
+        resultFromApi.results.map(async (person) => {
+          const planet = await getPlanet(person.homeworld);
+          const species = await getSpeciesNames(person.species as string[]);
 
-            return {
-              ...person,
-              homeworld_name: planet.name,
-              species_names: species,
-            };
-          })
-        );
+          return {
+            ...person,
+            homeworld_name: planet.name,
+            species_names: species,
+          };
+        })
+      );
 
-        setPeople(urlsToNames);
-        setTotal(resultFromApi.count);
-      } catch (error) {
-        showToast(ErrorMessage.REQUEST);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [page.current]
-  );
+      setPeople(urlsToNames);
+      setTotal(resultFromApi.count);
+    } catch (error) {
+      showToast(ErrorMessage.REQUEST);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const debouncedRequest = useRef(debounce(downloadData, 1000)).current;
 
@@ -69,28 +66,25 @@ export const MainScreen = () => {
 
   useEffect(() => {
     downloadData(query);
-  }, [downloadData]);
+  }, []);
 
   const startItem = (page.current - 1) * 10 + 1;
   const endItem = Math.min(page.current * 10, total);
   const isLastPage = page.current >= Math.ceil(total / 10);
 
-  const handlePageChange = useCallback(
-    (whichPage: "next" | "prev") => {
-      if (whichPage == "prev" && page.current <= 1) {
-        return;
-      }
+  const handlePageChange = (whichPage: "next" | "prev") => {
+    if (whichPage == "prev" && page.current <= 1) {
+      return;
+    }
 
-      if (whichPage === "next" && isLastPage) {
-        return;
-      }
+    if (whichPage === "next" && isLastPage) {
+      return;
+    }
 
-      page.current = whichPage === "prev" ? page.current - 1 : page.current + 1;
+    page.current = whichPage === "prev" ? page.current - 1 : page.current + 1;
 
-      downloadData(query);
-    },
-    [page.current]
-  );
+    downloadData(query);
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-gray-100">
