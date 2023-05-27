@@ -24,7 +24,7 @@ export const Header = () => {
         </View>
       </View>
 
-      <View className="flex flex-row justify-between mb-4">
+      <View className="flex flex-row justify-between">
         <CountCard number={femaleCount} title="Female Fans" />
 
         <CountCard number={maleCount} title="Male Fans" />

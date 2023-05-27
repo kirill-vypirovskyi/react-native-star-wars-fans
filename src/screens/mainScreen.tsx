@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, StyleSheet } from "react-native";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { Person } from "../types/person";
 import { getPeople, getPlanet, getSpeciesNames } from "../api/requests";
@@ -93,24 +93,41 @@ export const MainScreen = () => {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-100-100">
-      <ScrollView className="p-4">
-        <Header />
-
-        <Search query={query} onChange={handleQuery} />
-
-        <View>
-          <PeopleTable people={people} isLoading={isLoading} />
+    <SafeAreaView className="flex-1 bg-gray-100">
+      <ScrollView className="">
+        <View className="m-3">
+          <Header />
         </View>
 
-        <Pagination
-          total={total}
-          startItem={startItem}
-          endItem={endItem}
-          onPageChange={handlePageChange}
-          isLoading={isLoading}
-        />
+        <View style={styles.container} className="bg-white rounded p-3 m-3">
+          <Search query={query} onChange={handleQuery} />
+
+          <View>
+            <PeopleTable people={people} isLoading={isLoading} />
+          </View>
+
+          <Pagination
+            total={total}
+            startItem={startItem}
+            endItem={endItem}
+            onPageChange={handlePageChange}
+            isLoading={isLoading}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+});

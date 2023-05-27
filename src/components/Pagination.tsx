@@ -30,19 +30,19 @@ export const Pagination = ({
   
 
   return (
-    <View className="flex flex-row items-center justify-between mt-auto pb-4">
-      <Text className="text-xl">{`${startItem} – ${endItem} of ${total}`}</Text>
+    <View className="flex flex-row items-center justify-between">
+      <Text className="text-lg">{`${startItem} – ${endItem} of ${total}`}</Text>
 
       <View className="flex flex-row p-1">
         <RoundedButton disabled={disablePrev} onClick={() => onPageChange("prev")}>
           <View className="p-2">
-            <IconArrowLeft size={50} color={disablePrev ? '#a0a0a0' : '#000000'} />
+            <IconArrowLeft size={30} color={disablePrev ? '#a0a0a0' : '#000000'} />
           </View>
         </RoundedButton>
 
         <RoundedButton disabled={disableNext} onClick={() => onPageChange("next")}>
           <View className="p-2">
-            <IconArrowRight size={50} color={disableNext ? '#a0a0a0' : '#000000'}/>
+            <IconArrowRight size={30} color={disableNext ? '#a0a0a0' : '#000000'}/>
           </View>
         </RoundedButton>
       </View>
