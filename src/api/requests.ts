@@ -13,7 +13,7 @@ const get = async <T>(path: string): Promise<T> => {
 };
 
 export const getPeople = (page: number, query = "") => {
-  console.log("sending request getPeople");
+  // console.log("sending request getPeople");
 
   return get<requestResult<Person>>(
     `${BASE_URL}/people?search=${query}&page=${page}`
@@ -21,13 +21,13 @@ export const getPeople = (page: number, query = "") => {
 };
 
 export const getPlanet = (url: string) => {
-  console.log("sending request getPlanet");
+  // console.log("sending request getPlanet");
 
   return get<Planet>(url);
 };
 
 export const getSpecie = (url: string) => {
-  console.log("sending request getSpecie");
+  // console.log("sending request getSpecie");
   
   return get<Specie>(url);
 };

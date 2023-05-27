@@ -26,9 +26,6 @@ export const Pagination = ({
   const disablePrev = isFirstPage || isLoading;
   const disableNext = isLastPage || isLoading;
 
-  console.log(isLoading);
-  
-
   return (
     <View className="flex flex-row items-center justify-between">
       <Text className="text-lg">{`${startItem} – ${endItem} of ${total}`}</Text>

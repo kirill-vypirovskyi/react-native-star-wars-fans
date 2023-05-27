@@ -88,7 +88,7 @@ export const MainScreen = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-gray-100">
-      <ScrollView className="">
+      <ScrollView>
         <View className="m-3">
           <Header />
         </View>
