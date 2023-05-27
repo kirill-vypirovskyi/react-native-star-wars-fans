@@ -6,16 +6,29 @@ import {
   TouchableNativeFeedback,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Person } from "../types/person";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
 import { StackParams } from "../../App";
-import { getFilm, getStarship, getVehicle } from "../api/requests";
+import {
+  getFilm,
+  getFilms,
+  getStarship,
+  getStarships,
+  getVehicle,
+  getVehicles,
+} from "../api/requests";
 import { useEffect, useState } from "react";
 import { showToast } from "../helpers/functions";
 import { ErrorMessage } from "../types/ErrorMessage";
 import { Vehicle } from "../types/Vehicle";
 import { Starship } from "../types/Starship";
 import { Film } from "../types/Film";
+import { useNavigation } from "@react-navigation/native";
+import { Container } from "../components/Container";
+import { InfoCard } from "../components/InfoCard";
+import { Screen } from "../types/Screen";
 
 type Props = NativeStackScreenProps<StackParams, "Person">;
 
@@ -42,27 +55,22 @@ export const PersonScreen = ({ route }: Props) => {
   const [starshipsFull, setStarshipsFull] = useState<Starship[]>([]);
   const [filmsFull, setFilmsFull] = useState<Film[]>([]);
 
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
+
   useEffect(() => {
     (async () => {
       try {
-        const fullVehicles = await Promise.all(
-          vehicles.map((vehicle) => getVehicle(vehicle))
-        );
-        
+        const fullVehicles = await getVehicles(vehicles);
+
         setVehiclesFull(fullVehicles);
 
-        const fullStarships = await Promise.all(
-          starships.map((starship) => getStarship(starship))
-        );
+        const fullStarships = await getStarships(starships);
 
         setStarshipsFull(fullStarships);
 
-        const fullFilms = await Promise.all(
-          films.map((film) => getFilm(film))
-        );
+        const fullFilms = await getFilms(films);
 
         setFilmsFull(fullFilms);
-
       } catch {
         showToast(ErrorMessage.REQUEST);
       }
@@ -72,15 +80,15 @@ export const PersonScreen = ({ route }: Props) => {
   return (
     <SafeAreaView className="flex-1 bg-gray-100">
       <ScrollView>
-        <View style={styles.container} className="m-3 p-3 rounded bg-white">
+        <Container>
           <Text className="text-3xl mb-3">{name}</Text>
 
           <Text className={textClass}>
             Year of birth: {birth_year}, {homeworld_name}
           </Text>
-        </View>
+        </Container>
 
-        <View style={styles.container} className="m-3 p-3 rounded bg-white">
+        <Container>
           <Text className={`${textClass} font-bold`}>Body parameters:</Text>
 
           <Text className={textClass}>Gender: {gender}</Text>
@@ -98,63 +106,14 @@ export const PersonScreen = ({ route }: Props) => {
           <Text className={textClass}>
             Species: {species_names.length === 0 ? "none" : species_names}
           </Text>
-        </View>
+        </Container>
 
-        <View style={styles.container} className="m-3 p-3 rounded bg-white">
-          <Text className={`${textClass} font-bold mb-2`}>Vehicles:</Text>
+        <InfoCard objects={vehiclesFull} to={Screen.VEHICLE}/>
 
-          <View className="flex flex-row flex-wrap">
-            {vehiclesFull.map((vehicle) => (
-              <TouchableNativeFeedback key={vehicle.name} onPress={() => console.log("press")}>
-                <View className="bg-gray-300 rounded py-1 px-3 m-1">
-                  <Text>{vehicle.name}</Text>
-                </View>
-              </TouchableNativeFeedback>
-            ))}
-          </View>
-        </View>
+        <InfoCard objects={starshipsFull} to={Screen.STARSHIP} />
 
-        <View style={styles.container} className="m-3 p-3 rounded bg-white">
-          <Text className={`${textClass} font-bold mb-2`}>Starships:</Text>
-
-          <View className="flex flex-row flex-wrap">
-            {starshipsFull.map((starship) => (
-              <TouchableNativeFeedback key={starship.name} onPress={() => console.log("press")}>
-                <View className="bg-gray-300 rounded py-1 px-3 m-1">
-                  <Text>{starship.name}</Text>
-                </View>
-              </TouchableNativeFeedback>
-            ))}
-          </View>
-        </View>
-
-        <View style={styles.container} className="m-3 p-3 rounded bg-white">
-          <Text className={`${textClass} font-bold mb-2`}>Films:</Text>
-
-          <View className="flex flex-row flex-wrap">
-            {filmsFull.map((film) => (
-              <TouchableNativeFeedback key={film.episode_id} onPress={() => console.log("press")}>
-                <View className="bg-gray-300 rounded py-1 px-3 m-1">
-                  <Text>{film.title}</Text>
-                </View>
-              </TouchableNativeFeedback>
-            ))}
-          </View>
-        </View>
+        <InfoCard objects={filmsFull} to={Screen.FILM} />
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
-  },
-});

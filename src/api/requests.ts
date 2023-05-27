@@ -31,7 +31,7 @@ export const getPlanet = (url: string) => {
 
 export const getSpecie = (url: string) => {
   // console.log("sending request getSpecie");
-  
+
   return get<Specie>(url);
 };
 
@@ -47,12 +47,36 @@ export const getSpeciesNames = async (urls: string[]) => {
 
 export const getVehicle = async (url: string) => {
   return get<Vehicle>(url);
-}
+};
+
+export const getVehicles = async (urls: string[]) => {
+  const vehicles = await Promise.all(
+    urls.map((url) => getVehicle(url))
+  );
+
+  return vehicles;
+};
 
 export const getStarship = async (url: string) => {
   return get<Starship>(url);
-}
+};
+
+export const getStarships = async (urls: string[]) => {
+  const starships = await Promise.all(
+    urls.map((url) => getStarship(url))
+  );
+
+  return starships;
+};
 
 export const getFilm = async (url: string) => {
   return get<Film>(url);
-}
+};
+
+export const getFilms = async (urls: string[]) => {
+  const films = await Promise.all(
+    urls.map((url) => getFilm(url))
+  );
+
+  return films.map(film => ({...film, name: film.title}));
+};
