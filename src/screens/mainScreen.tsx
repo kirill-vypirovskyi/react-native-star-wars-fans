@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet } from "react-native";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { Person } from "../types/person";
 import { getPeople, getPlanet, getSpeciesNames } from "../api/requests";
-import PeopleTable from "../components/PeopleTable";
+import PeopleTable from "../components/PeopleTable/PeopleTable";
 import { useFavouritesContext } from "../context.ts/favouritesContext";
 import { Header } from "../components/Header";
 import { Search } from "../components/Search";
