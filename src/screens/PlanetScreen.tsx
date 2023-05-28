@@ -34,8 +34,12 @@ export const PlanetScreen = ({ route }: Props) => {
   const [charsFull, setCharsFull] = useState<Person[]>([]);
   const [filmsFull, setFilmsFull] = useState<Film[]>([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
+
       try {
         const fullPersons = await getPersons(residents);
         setCharsFull(fullPersons);
@@ -44,6 +48,8 @@ export const PlanetScreen = ({ route }: Props) => {
         setFilmsFull(fullFilms);
       } catch {
         showToast(ErrorMessage.REQUEST);
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, []);
@@ -74,9 +80,9 @@ export const PlanetScreen = ({ route }: Props) => {
         <InfoTableRow title="Surface water" value={surface_water} last />
       </Container>
 
-      <InfoCard objects={charsFull} to={Screen.PERSON} title="Characters:" />
+      <InfoCard isLoading={isLoading} objects={charsFull} to={Screen.PERSON} title="Characters:" />
 
-      <InfoCard objects={filmsFull} to={Screen.FILM} />
+      <InfoCard isLoading={isLoading} objects={filmsFull} to={Screen.FILM} />
     </ScrollView>
   );
 };

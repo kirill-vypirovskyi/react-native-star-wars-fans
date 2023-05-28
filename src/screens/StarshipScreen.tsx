@@ -37,8 +37,12 @@ export const StarshipScreen = ({ route }: Props) => {
   const [filmsFull, setFilmsFull] = useState<Film[]>([]);
   const [pilotsFull, setPilotsFull] = useState<Person[]>([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
+
       try {
         const fullFilms = await getFilms(films);
 
@@ -49,6 +53,8 @@ export const StarshipScreen = ({ route }: Props) => {
         setPilotsFull(fullPerson);
       } catch {
         showToast(ErrorMessage.REQUEST);
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, []);
@@ -77,18 +83,30 @@ export const StarshipScreen = ({ route }: Props) => {
       <Container>
         <Text className={`${textClass} font-bold mb-2`}>Specs:</Text>
 
-        <InfoTableRow title="Cargo capacity" value={cargo_capacity + 'kg'}/>
-        <InfoTableRow title="Consumables" value={consumables}/>
-        <InfoTableRow title="Length" value={length + 'm'}/>
-        <InfoTableRow title="Passengers" value={passengers}/>
-        <InfoTableRow title="Max speed:" value={max_atmosphering_speed + 'kmh'}/>
-        <InfoTableRow title="Passengers" value={passengers}/>
-        <InfoTableRow title="Crew" value={crew} last/>
+        <InfoTableRow title="Cargo capacity" value={cargo_capacity + "kg"} />
+        <InfoTableRow title="Consumables" value={consumables} />
+        <InfoTableRow title="Length" value={length + "m"} />
+        <InfoTableRow title="Passengers" value={passengers} />
+        <InfoTableRow
+          title="Max speed:"
+          value={max_atmosphering_speed + "kmh"}
+        />
+        <InfoTableRow title="Passengers" value={passengers} />
+        <InfoTableRow title="Crew" value={crew} last />
       </Container>
 
-      <InfoCard objects={pilotsFull} to={Screen.PERSON} title="Pilots:" />
+      <InfoCard
+        isLoading={isLoading}
+        objects={pilotsFull}
+        to={Screen.PERSON}
+        title="Pilots:"
+      />
 
-      <InfoCard objects={filmsFull} to={Screen.FILM} />
+      <InfoCard
+        isLoading={isLoading}
+        objects={filmsFull}
+        to={Screen.FILM}
+      />
     </ScrollView>
   );
 };

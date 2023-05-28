@@ -1,5 +1,10 @@
 import React from "react";
-import { Text, View, TouchableNativeFeedback } from "react-native";
+import {
+  Text,
+  View,
+  TouchableNativeFeedback,
+  ActivityIndicator,
+} from "react-native";
 import { Container } from "./Container";
 import { Starship } from "../types/Starship";
 import { Film } from "../types/Film";
@@ -10,36 +15,52 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParams } from "../../App";
 import { Screen } from "../types/Screen";
 import { Planet } from "../types/Planet";
+import { Loader } from "./Loader";
 
 type Props = {
   objects: Vehicle[] | Person[] | Starship[] | Film[] | Planet[];
   to: Screen;
   title?: string;
+  isLoading: boolean;
 };
 
 const textClass = "text-xl";
 
-export const InfoCard = ({ objects, to, title }: Props) => {
+export const InfoCard = ({ objects, to, title, isLoading }: Props) => {
   const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 
   return (
     <Container>
-      <Text className={`${textClass} font-bold mb-2`}>{`${title ?? `${to}s:`}`}</Text>
+      <Text className={`${textClass} font-bold mb-2`}>{`${
+        title ?? `${to}s:`
+      }`}</Text>
 
-      <View className="flex flex-row flex-wrap">
-        {objects.map((object) => {
-          return (
-            <TouchableNativeFeedback
-              key={object.created}
-              onPress={() => navigation.push(to as any, { [to.toLowerCase()]: object })}
-            >
-              <View className="bg-gray-300 rounded py-1 px-3 m-1">
-                <Text>{object.name}</Text>
-              </View>
-            </TouchableNativeFeedback>
-          );
-        })}
-      </View>
+      {!isLoading && objects.length !== 0 ? (
+        <View className="flex flex-row flex-wrap">
+          {objects.map((object) => {
+            return (
+              <TouchableNativeFeedback
+                key={object.created}
+                onPress={() =>
+                  navigation.push(to as any, { [to.toLowerCase()]: object })
+                }
+              >
+                <View className="bg-gray-300 rounded py-1 px-3 m-1">
+                  <Text>{object.name}</Text>
+                </View>
+              </TouchableNativeFeedback>
+            );
+          })}
+        </View>
+      ) : (
+        <View>
+          <Text>No {(title ?? `${to}s`).toLowerCase()}</Text>
+        </View>
+      )}
+
+      {isLoading && (
+        <Loader />
+      )}
     </Container>
   );
 };

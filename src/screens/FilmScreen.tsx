@@ -48,8 +48,12 @@ export const FilmScreen = ({ route }: Props) => {
   const [planetsFull, setPlanetsFull] = useState<Planet[]>([]);
   const [isCrawlOpened, setCrawlOpened] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
+
       try {
         const fullStarships = await getStarships(starships);
         setStarshipsFull(fullStarships);
@@ -64,6 +68,8 @@ export const FilmScreen = ({ route }: Props) => {
         setPlanetsFull(fullPlanets);
       } catch {
         showToast(ErrorMessage.REQUEST);
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, []);
@@ -94,13 +100,13 @@ export const FilmScreen = ({ route }: Props) => {
         </Modal>
       </Container>
 
-      <InfoCard objects={charsFull} to={Screen.PERSON} title="Characters:" />
+      <InfoCard isLoading={isLoading} objects={charsFull} to={Screen.PERSON} title="Characters:" />
 
-      <InfoCard objects={planetsFull} to={Screen.PLANET} />
+      <InfoCard isLoading={isLoading} objects={planetsFull} to={Screen.PLANET} />
 
-      <InfoCard objects={vehiclesFull} to={Screen.VEHICLE} />
+      <InfoCard isLoading={isLoading} objects={vehiclesFull} to={Screen.VEHICLE} />
 
-      <InfoCard objects={starshipsFull} to={Screen.STARSHIP} />
+      <InfoCard isLoading={isLoading} objects={starshipsFull} to={Screen.STARSHIP} />
     </ScrollView>
   );
 };

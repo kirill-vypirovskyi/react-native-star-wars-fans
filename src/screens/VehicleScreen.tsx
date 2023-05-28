@@ -36,18 +36,21 @@ export const VehicleScreen = ({ route }: Props) => {
   const [filmsFull, setFilmsFull] = useState<Film[]>([]);
   const [pilotsFull, setPilotsFull] = useState<Person[]>([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
+    setIsLoading(true);
     (async () => {
       try {
         const fullFilms = await getFilms(films);
-
         setFilmsFull(fullFilms);
 
         const fullPerson = await getPersons(pilots);
-
         setPilotsFull(fullPerson);
       } catch {
         showToast(ErrorMessage.REQUEST);
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, []);
@@ -80,12 +83,12 @@ export const VehicleScreen = ({ route }: Props) => {
         />
 
         <InfoTableRow title="passengers" value={passengers} />
-        <InfoTableRow title="Crew" value={crew} last/>
+        <InfoTableRow title="Crew" value={crew} last />
       </Container>
 
-      <InfoCard objects={pilotsFull} to={Screen.PERSON} title="Pilots:" />
+      <InfoCard isLoading={isLoading} objects={pilotsFull} to={Screen.PERSON} title="Pilots:" />
 
-      <InfoCard objects={filmsFull} to={Screen.FILM} />
+      <InfoCard isLoading={isLoading} objects={filmsFull} to={Screen.FILM} />
     </ScrollView>
   );
 };
