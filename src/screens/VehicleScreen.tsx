@@ -10,7 +10,7 @@ import { Film } from "../types/Film";
 import { Screen } from "../types/Screen";
 import { Container } from "../components/Container";
 import { InfoCard } from "../components/InfoCard";
-import { Person } from "../types/person";
+import { Person } from "../types/Person";
 
 type Props = NativeStackScreenProps<StackParams, "Vehicle">;
 

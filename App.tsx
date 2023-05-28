@@ -4,7 +4,7 @@ import { MainScreen } from "./src/screens/MainScreen";
 import { PersonScreen } from "./src/screens/PersonScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Person } from "./src/types/person";
+import { Person } from "./src/types/Person";
 import { Vehicle } from "./src/types/Vehicle";
 import { Starship } from "./src/types/Starship";
 import { Film } from "./src/types/Film";

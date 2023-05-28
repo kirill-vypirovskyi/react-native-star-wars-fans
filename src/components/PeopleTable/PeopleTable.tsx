@@ -1,23 +1,27 @@
-import {
-  ScrollView,
-  View,
-  ActivityIndicator,
-  Text,
-} from "react-native";
-import { Person } from "../../types/person";
+import { ScrollView, View, ActivityIndicator, Text } from "react-native";
+import { Person } from "../../types/Person";
 import { PeopleTableRow } from "./PeopleTableRow";
+import { PeopleTableHeader } from "./PeopletableHeader";
+import { SortOrder } from "../../types/SortOrder";
 
 type Props = {
   people: Person[];
   isLoading: boolean;
+  sortOrder: SortOrder;
+  onOrderChange: (order: SortOrder) => void;
 };
 
-const PeopleTable = ({ people, isLoading }: Props) => {
+const PeopleTable = ({
+  people,
+  isLoading,
+  sortOrder,
+  onOrderChange,
+}: Props) => {
   return (
     <>
       <ScrollView horizontal={true} className={isLoading ? "opacity-25" : ""}>
         <View className="flex flex-col">
-          <PeopleTableRow index={-1} />
+          <PeopleTableHeader sortOrder={sortOrder} onOrderChange={onOrderChange}/>
           {people.map((person, index) => (
             <PeopleTableRow person={person} index={index} key={person.url} />
           ))}

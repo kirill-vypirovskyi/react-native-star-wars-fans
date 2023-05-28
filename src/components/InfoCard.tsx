@@ -3,7 +3,7 @@ import { Text, View, TouchableNativeFeedback } from "react-native";
 import { Container } from "./Container";
 import { Starship } from "../types/Starship";
 import { Film } from "../types/Film";
-import { Person } from "../types/person";
+import { Person } from "../types/Person";
 import { Vehicle } from "../types/Vehicle";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";

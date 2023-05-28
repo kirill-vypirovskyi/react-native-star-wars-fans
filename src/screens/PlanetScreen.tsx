@@ -1,30 +1,14 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState, useEffect } from "react";
-import {
-  ScrollView,
-  Text,
-  View,
-  TouchableOpacity,
-  Modal,
-  Button,
-} from "react-native";
+import { ScrollView, Text } from "react-native";
 import { Screen } from "../types/Screen";
 import { StackParams } from "../../App";
-import {
-  getFilms,
-  getPersons,
-  getPlanets,
-  getStarships,
-  getVehicles,
-} from "../api/requests";
+import { getFilms, getPersons } from "../api/requests";
 import { Container } from "../components/Container";
 import { InfoCard } from "../components/InfoCard";
-import { formatDate, showToast } from "../helpers/functions";
+import { showToast } from "../helpers/functions";
 import { ErrorMessage } from "../types/ErrorMessage";
-import { Person } from "../types/person";
-import { Starship } from "../types/Starship";
-import { Vehicle } from "../types/Vehicle";
-import { Planet } from "../types/Planet";
+import { Person } from "../types/Person";
 import { Film } from "../types/Film";
 
 type Props = NativeStackScreenProps<StackParams, "Planet">;
@@ -84,12 +68,11 @@ export const PlanetScreen = ({ route }: Props) => {
 
         <Text className={textClass}>Orbital period: {orbital_period} days</Text>
 
-        <Text className={textClass}>Rotation period: {rotation_period} hours</Text>
+        <Text className={textClass}>
+          Rotation period: {rotation_period} hours
+        </Text>
 
         <Text className={textClass}>Surface water: {surface_water}</Text>
-
-
-
       </Container>
 
       <InfoCard objects={charsFull} to={Screen.PERSON} title="Characters:" />

@@ -20,7 +20,7 @@ import { Container } from "../components/Container";
 import { InfoCard } from "../components/InfoCard";
 import { formatDate, showToast } from "../helpers/functions";
 import { ErrorMessage } from "../types/ErrorMessage";
-import { Person } from "../types/person";
+import { Person } from "../types/Person";
 import { Starship } from "../types/Starship";
 import { Vehicle } from "../types/Vehicle";
 import { Planet } from "../types/Planet";

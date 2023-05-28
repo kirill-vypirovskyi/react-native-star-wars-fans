@@ -1,5 +1,7 @@
 import { ToastAndroid } from "react-native";
 import { ErrorMessage } from "../types/ErrorMessage";
+import { SortOrder } from "../types/SortOrder";
+import { Person } from "../types/Person";
 
 export const showToast = (message: ErrorMessage) => {
   ToastAndroid.showWithGravity(message, ToastAndroid.LONG, ToastAndroid.TOP);
@@ -7,4 +9,18 @@ export const showToast = (message: ErrorMessage) => {
 
 export const formatDate = (date: string): string => {
   return date.slice(0, 4)
+}
+
+export const sortPeople = (people: Person[], sortOrder: SortOrder): Person[] => {
+  let sortedPeople = [...people];
+
+  if (sortOrder === SortOrder.ASC) {
+    return sortedPeople.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  if (sortOrder === SortOrder.DESC) {
+    return sortedPeople.sort((a, b) => b.name.localeCompare(a.name));;
+  }
+
+  return people;
 }

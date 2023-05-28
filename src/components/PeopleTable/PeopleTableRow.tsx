@@ -1,5 +1,5 @@
 import { HearthButton } from "../HearthButton";
-import { Person } from "../../types/person";
+import { Person } from "../../types/Person";
 import { TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { useFavouritesContext } from "../../context.ts/favouritesContext";
 import { PeopleTableCell } from "./PeopleTableCell";
@@ -8,32 +8,11 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParams } from "../../../App";
 
 type Props = {
-  person?: Person;
+  person: Person;
   index: number;
 };
 
-const headerData = {
-  name: "Name",
-  height: "",
-  mass: "",
-  hair_color: "",
-  skin_color: "",
-  eye_color: "",
-  birth_year: "Birth Year",
-  gender: "Gender",
-  homeworld: " ",
-  homeworld_name: "Home World",
-  films: [""],
-  species: [""],
-  species_names: ["Species"],
-  vehicles: [""],
-  starships: [""],
-  created: "",
-  edited: "",
-  url: "",
-};
-
-export const PeopleTableRow = ({ person = headerData, index }: Props) => {
+export const PeopleTableRow = ({ person, index }: Props) => {
   const { addFavourite, removeFavourite, isInFavourites } =
     useFavouritesContext();
 
@@ -78,7 +57,7 @@ export const PeopleTableRow = ({ person = headerData, index }: Props) => {
 
         <TouchableOpacity
           className=" absolute top-0 bottom-0 left-0 right-0 bg-red-500 opacity-10 "
-          onPress={() => navigation.navigate("Person", { person })}
+          onPress={() => navigation.push("Person", { person })}
         />
       </View>
 
@@ -91,9 +70,14 @@ export const PeopleTableRow = ({ person = headerData, index }: Props) => {
       </View>
 
       <View style={{ width: 150 }} className="flex justify-center">
-        <PeopleTableCell>{person.homeworld_name}</PeopleTableCell>
+        <PeopleTableCell>{person.homeworld_full.name}</PeopleTableCell>
 
-        <TouchableOpacity className=" absolute top-0 bottom-0 left-0 right-0 bg-red-500 opacity-10 " />
+        <TouchableOpacity
+          className=" absolute top-0 bottom-0 left-0 right-0 bg-red-500 opacity-10 "
+          onPress={() =>
+            navigation.push("Planet", { planet: person.homeworld_full })
+          }
+        />
       </View>
 
       <View style={{ width: 150 }} className="flex justify-center">

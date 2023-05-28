@@ -30,7 +30,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Container } from "../components/Container";
 import { InfoCard } from "../components/InfoCard";
 import { Screen } from "../types/Screen";
-import { Specie } from "../types/specie";
+import { Specie } from "../types/Specie";
 import { HearthButton } from "../components/HearthButton";
 import { useFavouritesContext } from "../context.ts/favouritesContext";
 
@@ -42,7 +42,7 @@ export const PersonScreen = ({ route }: Props) => {
   const {
     name,
     birth_year,
-    homeworld_name,
+    homeworld_full,
     gender,
     height,
     mass,
@@ -112,7 +112,7 @@ export const PersonScreen = ({ route }: Props) => {
 
         <Text className={textClass}>
           Year of birth: {birth_year}
-          {homeworld_name ? `, ${homeworld_name}` : ""}
+          {homeworld_full ? `, ${homeworld_full.name}` : ""}
         </Text>
       </Container>
 

@@ -1,3 +1,5 @@
+import { Planet } from "./Planet";
+
 export interface Person {
   name: string;
   height: string;
@@ -8,7 +10,7 @@ export interface Person {
   birth_year: string;
   gender: string;
   homeworld: string;
-  homeworld_name: string;
+  homeworld_full: Planet;
   films: string[];
   species: string[];
   species_names: string[];

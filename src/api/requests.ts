@@ -1,8 +1,8 @@
 import axios from "axios";
 import { Planet } from "../types/Planet";
-import { Person } from "../types/person";
-import { requestResult } from "../types/requestResult";
-import { Specie } from "../types/specie";
+import { Person } from "../types/Person";
+import { requestResult } from "../types/RequestResult";
+import { Specie } from "../types/Specie";
 import { Vehicle } from "../types/Vehicle";
 import { Starship } from "../types/Starship";
 import { Film } from "../types/Film";
