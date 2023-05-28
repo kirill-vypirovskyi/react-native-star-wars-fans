@@ -11,6 +11,7 @@ import { Screen } from "../types/Screen";
 import { Container } from "../components/Container";
 import { InfoCard } from "../components/InfoCard";
 import { Person } from "../types/Person";
+import { InfoTableRow } from "../components/InfoTableRow";
 
 type Props = NativeStackScreenProps<StackParams, "Vehicle">;
 
@@ -60,27 +61,27 @@ export const VehicleScreen = ({ route }: Props) => {
           Model: {model}, {vehicle_class}
         </Text>
 
-        <Text className={textClass}>Price: {cost_in_credits}{cost_in_credits === 'unknown' ? '': ' GSC'} </Text>
+        <Text className={textClass}>
+          Price: {cost_in_credits}
+          {cost_in_credits === "unknown" ? "" : " GSC"}{" "}
+        </Text>
 
         <Text className={textClass}>Manufacturer: {manufacturer}</Text>
       </Container>
 
       <Container>
         <Text className={`${textClass} font-bold`}>Specs:</Text>
+        <InfoTableRow title="Cargo capacity" value={cargo_capacity} />
+        <InfoTableRow title="cargo_capacity" value={consumables} />
+        <InfoTableRow title="Length" value={length + "m"} />
 
-        <Text className={textClass}>Cargo capacity: {cargo_capacity}kg</Text>
+        <InfoTableRow
+          title="Max speed"
+          value={max_atmosphering_speed + "kmh"}
+        />
 
-        <Text className={textClass}>Consumables: {consumables}</Text>
-
-        <Text className={textClass}>Length: {length}m</Text>
-
-        <Text className={textClass}>
-          Max speed: {max_atmosphering_speed}kmh
-        </Text>
-
-        <Text className={textClass}>Passengers: {passengers}</Text>
-
-        <Text className={textClass}>Crew: {crew}</Text>
+        <InfoTableRow title="passengers" value={passengers} />
+        <InfoTableRow title="Crew" value={crew} last/>
       </Container>
 
       <InfoCard objects={pilotsFull} to={Screen.PERSON} title="Pilots:" />

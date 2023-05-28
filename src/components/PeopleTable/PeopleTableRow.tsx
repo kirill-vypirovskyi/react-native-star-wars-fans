@@ -1,6 +1,12 @@
 import { HearthButton } from "../HearthButton";
 import { Person } from "../../types/Person";
-import { TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import {
+  Text,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { useFavouritesContext } from "../../context.ts/favouritesContext";
 import { PeopleTableCell } from "./PeopleTableCell";
 import { useNavigation } from "@react-navigation/native";
@@ -53,12 +59,15 @@ export const PeopleTableRow = ({ person, index }: Props) => {
       </View>
 
       <View style={{ width: 324 }} className="flex justify-center">
-        <PeopleTableCell>{person.name}</PeopleTableCell>
-
-        <TouchableOpacity
-          className=" absolute top-0 bottom-0 left-0 right-0 bg-red-500 opacity-10 "
-          onPress={() => navigation.push("Person", { person })}
-        />
+        <PeopleTableCell>
+          <TouchableNativeFeedback
+            onPress={() => navigation.push("Person", { person })}
+          >
+            <View className="bg-gray-200 rounded py-1 px-3 ">
+              <Text>{person.name}</Text>
+            </View>
+          </TouchableNativeFeedback>
+        </PeopleTableCell>
       </View>
 
       <View style={{ width: 150 }} className="flex justify-center">
@@ -70,10 +79,15 @@ export const PeopleTableRow = ({ person, index }: Props) => {
       </View>
 
       <View style={{ width: 150 }} className="flex justify-center">
-        <PeopleTableCell>{person.homeworld_full.name}</PeopleTableCell>
+        <PeopleTableCell>
+
+            <View className="bg-gray-200 rounded py-1 px-3 ">
+              <Text>{person.homeworld_full.name}</Text>
+            </View>
+        </PeopleTableCell>
 
         <TouchableOpacity
-          className=" absolute top-0 bottom-0 left-0 right-0 bg-red-500 opacity-10 "
+          className=" absolute top-0 bottom-0 left-0 right-0 opacity-10 "
           onPress={() =>
             navigation.push("Planet", { planet: person.homeworld_full })
           }
@@ -82,8 +96,6 @@ export const PeopleTableRow = ({ person, index }: Props) => {
 
       <View style={{ width: 150 }} className="flex justify-center">
         <PeopleTableCell>{person.species_names.join(", ")}</PeopleTableCell>
-
-        <TouchableOpacity className=" absolute top-0 bottom-0 left-0 right-0 bg-red-500 opacity-10 " />
       </View>
     </View>
   );

@@ -33,6 +33,7 @@ import { Screen } from "../types/Screen";
 import { Specie } from "../types/Specie";
 import { HearthButton } from "../components/HearthButton";
 import { useFavouritesContext } from "../context.ts/favouritesContext";
+import { InfoTableRow } from "../components/InfoTableRow";
 
 type Props = NativeStackScreenProps<StackParams, "Person">;
 
@@ -85,17 +86,14 @@ export const PersonScreen = ({ route }: Props) => {
     })();
   }, []);
 
-  const {
-    addFavourite,
-    removeFavourite,
-    isInFavourites,
-  } = useFavouritesContext();
+  const { addFavourite, removeFavourite, isInFavourites } =
+    useFavouritesContext();
 
   const inFavourites = isInFavourites(url);
 
   const handleFavourite = () => {
-    inFavourites ? removeFavourite(url) : addFavourite({url, gender})
-  }
+    inFavourites ? removeFavourite(url) : addFavourite({ url, gender });
+  };
 
   return (
     <ScrollView>
@@ -117,23 +115,20 @@ export const PersonScreen = ({ route }: Props) => {
       </Container>
 
       <Container>
-        <Text className={`${textClass} font-bold`}>Body parameters:</Text>
+        <Text className={`${textClass} font-bold mb-2`}>Body parameters:</Text>
 
-        <Text className={textClass}>Gender: {gender}</Text>
-
-        <Text className={textClass}>Height: {height}cm </Text>
-
-        <Text className={textClass}>Mass: {mass}kg</Text>
-
-        <Text className={textClass}>Skin color: {skin_color}</Text>
-
-        <Text className={textClass}>Eyes color: {eye_color}</Text>
-
-        <Text className={textClass}>Hair color: {hair_color}</Text>
-
-        <Text className={textClass}>
-          Species: {speciesFull.length === 0 ? "none" : speciesFull}
-        </Text>
+        <InfoTableRow title="Gender" value={gender} />
+        <InfoTableRow title="Height" value={height + "cm"} />
+        <InfoTableRow title="Mass" value={mass + "kg"} />
+        <InfoTableRow title="Skin color" value={skin_color} />
+        <InfoTableRow title="Eyes color" value={eye_color} />
+        <InfoTableRow title="Hair color" value={hair_color} />
+        
+        <InfoTableRow
+          title="Species"
+          value={speciesFull.length === 0 ? "none" : speciesFull.join(", ")}
+          last
+        />
       </Container>
 
       <InfoCard objects={vehiclesFull} to={Screen.VEHICLE} />

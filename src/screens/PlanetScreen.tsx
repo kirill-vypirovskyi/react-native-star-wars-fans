@@ -10,6 +10,7 @@ import { showToast } from "../helpers/functions";
 import { ErrorMessage } from "../types/ErrorMessage";
 import { Person } from "../types/Person";
 import { Film } from "../types/Film";
+import { InfoTableRow } from "../components/InfoTableRow";
 
 type Props = NativeStackScreenProps<StackParams, "Planet">;
 
@@ -58,21 +59,19 @@ export const PlanetScreen = ({ route }: Props) => {
       </Container>
 
       <Container>
-        <Text className={`${textClass} font-bold`}>Parameters:</Text>
+        <Text className={`${textClass} font-bold mb-2`}>Parameters:</Text>
 
-        <Text className={textClass}>Climate: {climate}</Text>
+        <InfoTableRow title="Climate" value={climate} />
+        <InfoTableRow title="Diameter" value={diameter} />
+        <InfoTableRow title="Gravity" value={gravity} />
+        <InfoTableRow title="Orbital period" value={orbital_period + " days"} />
 
-        <Text className={textClass}>Diameter: {diameter}</Text>
+        <InfoTableRow
+          title="Rotation period"
+          value={rotation_period + " ours"}
+        />
 
-        <Text className={textClass}>Gravity: {gravity}</Text>
-
-        <Text className={textClass}>Orbital period: {orbital_period} days</Text>
-
-        <Text className={textClass}>
-          Rotation period: {rotation_period} hours
-        </Text>
-
-        <Text className={textClass}>Surface water: {surface_water}</Text>
+        <InfoTableRow title="Surface water" value={surface_water} last />
       </Container>
 
       <InfoCard objects={charsFull} to={Screen.PERSON} title="Characters:" />

@@ -12,9 +12,10 @@ export const Search = ({ query, onChange, onSubmit }: Props) => {
   return (
     <View className="flex flex-row mb-2">
       <IconSearch size={25} color="#000000" />
+
       <TextInput
         placeholder="Search for a name"
-        className="p-4 text-lg caret-black"
+        className="p-4 text-lg w-11/12"
         onChangeText={onChange}
         value={query}
         onSubmitEditing={onSubmit}
