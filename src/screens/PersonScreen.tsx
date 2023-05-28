@@ -2,22 +2,15 @@ import {
   View,
   Text,
   ScrollView,
-  StyleSheet,
-  TouchableNativeFeedback,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import {
-  NativeStackNavigationProp,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 import { StackParams } from "../../App";
 import {
-  getFilm,
   getFilms,
   getSpeciesNames,
-  getStarship,
   getStarships,
-  getVehicle,
   getVehicles,
 } from "../api/requests";
 import { useEffect, useState } from "react";
@@ -26,11 +19,9 @@ import { ErrorMessage } from "../types/ErrorMessage";
 import { Vehicle } from "../types/Vehicle";
 import { Starship } from "../types/Starship";
 import { Film } from "../types/Film";
-import { useNavigation } from "@react-navigation/native";
 import { Container } from "../components/Container";
 import { InfoCard } from "../components/InfoCard";
 import { Screen } from "../types/Screen";
-import { Specie } from "../types/Specie";
 import { HearthButton } from "../components/HearthButton";
 import { useFavouritesContext } from "../context.ts/favouritesContext";
 import { InfoTableRow } from "../components/InfoTableRow";

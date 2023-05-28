@@ -73,7 +73,7 @@ export const FilmScreen = ({ route }: Props) => {
       <Container>
         <View className="flex flex-row justify-between">
           <Text className="text-3xl mb-3">{title}</Text>
-          <Text className="text-xl">{formatDate(release_date)}</Text>
+          <Text className={textClass}>{formatDate(release_date)}</Text>
         </View>
 
         <Text className={textClass}>Director: {director}</Text>
@@ -88,7 +88,7 @@ export const FilmScreen = ({ route }: Props) => {
 
         <Modal visible={isCrawlOpened} animationType="slide">
           <View className="flex flex-col items-center h-screen justify-between p-10">
-            <Text className="text-xl">{opening_crawl}</Text>
+            <Text className={textClass}>{opening_crawl}</Text>
             <Button title="Close" onPress={() => setCrawlOpened(false)} />
           </View>
         </Modal>

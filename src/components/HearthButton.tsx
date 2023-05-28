@@ -1,6 +1,4 @@
 import React from "react";
-import RoundedButton from "./RoundedButton";
-import { IconHeart } from "../icons/IconHeart";
 import { TouchableNativeFeedback, View } from "react-native";
 import Svg, { G, Path } from "react-native-svg";
 

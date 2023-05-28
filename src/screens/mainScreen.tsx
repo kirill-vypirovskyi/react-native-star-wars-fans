@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, ScrollView, StyleSheet } from "react-native";
-import { useEffect, useState, useRef, useCallback, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { Person } from "../types/Person";
 import { getPeople, getPlanet, getSpeciesNames } from "../api/requests";
 import PeopleTable from "../components/PeopleTable/PeopleTable";

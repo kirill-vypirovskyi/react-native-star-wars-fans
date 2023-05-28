@@ -4,7 +4,6 @@ import {
   Text,
   TouchableNativeFeedback,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { useFavouritesContext } from "../../context.ts/favouritesContext";

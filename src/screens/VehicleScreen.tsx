@@ -1,9 +1,8 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView, Text } from "react-native";
 import { StackParams } from "../../App";
 import { useEffect, useState } from "react";
-import { getStarships, getFilms, getPerson, getPersons } from "../api/requests";
+import { getFilms, getPersons } from "../api/requests";
 import { showToast } from "../helpers/functions";
 import { ErrorMessage } from "../types/ErrorMessage";
 import { Film } from "../types/Film";
