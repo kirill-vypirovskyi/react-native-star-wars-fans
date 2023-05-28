@@ -1,19 +1,19 @@
 import React from "react";
 import { View, TouchableOpacity } from "react-native";
-import { IconHome } from "../icons/IconHome";
 import { useNavigation } from "@react-navigation/native";
-import { Screen } from "../types/Screen";
+import { Screen } from "../../types/Screen";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { StackParams } from "../../App";
+import { StackParams } from "../../../App";
+import { IconHeart } from "../../icons/IconHeart";
 
 
-export const BackToHomeButton = () => {
+export const HeaderHearthButton = () => {
   const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(Screen.MAIN)}>
-      <View>
-        <IconHome />
+    <TouchableOpacity onPress={() => navigation.navigate(Screen.FAVS)}>
+      <View className="p-2">
+        <IconHeart color="#ff0000"/>
       </View>
     </TouchableOpacity>
   );

@@ -5,4 +5,5 @@ export enum Screen {
   STARSHIP = 'Starship',
   FILM = 'Film',
   PLANET = 'Planet',
+  FAVS = 'Favourites',
 }

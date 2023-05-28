@@ -8,10 +8,13 @@ export const showToast = (message: ErrorMessage) => {
 };
 
 export const formatDate = (date: string): string => {
-  return date.slice(0, 4)
-}
+  return date.slice(0, 4);
+};
 
-export const sortPeople = (people: Person[], sortOrder: SortOrder): Person[] => {
+export const sortPeople = (
+  people: Person[],
+  sortOrder: SortOrder
+): Person[] => {
   let sortedPeople = [...people];
 
   if (sortOrder === SortOrder.ASC) {
@@ -19,8 +22,16 @@ export const sortPeople = (people: Person[], sortOrder: SortOrder): Person[] => 
   }
 
   if (sortOrder === SortOrder.DESC) {
-    return sortedPeople.sort((a, b) => b.name.localeCompare(a.name));;
+    return sortedPeople.sort((a, b) => b.name.localeCompare(a.name));
   }
 
   return people;
-}
+};
+
+export const filterPeople = (people: Person[], query: string) => {
+  return people.filter((person) =>
+    person.name.toLowerCase().includes(query.toLowerCase())
+  );
+};
+
+export const emptyFunction = () => {};

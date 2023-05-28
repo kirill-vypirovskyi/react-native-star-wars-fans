@@ -11,7 +11,7 @@ type Props = {
   onOrderChange: (order: SortOrder) => void;
 };
 
-const PeopleTable = ({
+export const PeopleTable = ({
   people,
   isLoading,
   sortOrder,
@@ -42,5 +42,3 @@ const PeopleTable = ({
     </>
   );
 };
-
-export default PeopleTable;

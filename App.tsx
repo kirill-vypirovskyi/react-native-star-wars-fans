@@ -9,14 +9,19 @@ import { Vehicle } from "./src/types/Vehicle";
 import { Starship } from "./src/types/Starship";
 import { Film } from "./src/types/Film";
 import { VehicleScreen } from "./src/screens/VehicleScreen";
-import { BackToHomeButton } from "./src/components/BackToHomeButton";
+import { HeaderHomeButton } from "./src/components/HeaderButtons/HeaderHomeButton";
 import { StarshipScreen } from "./src/screens/StarshipScreen";
 import { FilmScreen } from "./src/screens/FilmScreen";
 import { PlanetScreen } from "./src/screens/PlanetScreen";
 import { Planet } from "./src/types/Planet";
+import { FavoritesScreen } from "./src/screens/FavoritesScreen";
+import { HeaderHearthButton } from "./src/components/HeaderButtons/HeaderHeartButton";
+import { HeaderTrashButton } from "./src/components/HeaderButtons/HeaderTrashButton";
+import { View } from "react-native";
 
 export type StackParams = {
   Main: undefined;
+  Favourites: undefined;
   Person: {
     person: Person;
   };
@@ -40,11 +45,33 @@ export default function App() {
   return (
     <FavouritesProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Main">
+        <Stack.Navigator
+          initialRouteName="Main"
+          screenOptions={{
+            animation: "slide_from_bottom",
+          }}
+        >
           <Stack.Screen
             name="Main"
             component={MainScreen}
-            options={{ headerShown: false }}
+            options={{
+              headerTitle: "Star Wars Fans",
+              headerRight: () => <HeaderHearthButton />,
+            }}
+          />
+
+          <Stack.Screen
+            name="Favourites"
+            component={FavoritesScreen}
+            options={{
+              headerTitle: "My Favourites",
+              headerRight: () => (
+                <View className="flex flex-row">
+                  <HeaderTrashButton />
+                  <HeaderHomeButton />
+                </View>
+              ),
+            }}
           />
 
           <Stack.Screen
@@ -52,7 +79,7 @@ export default function App() {
             component={PersonScreen}
             options={{
               headerTitle: "Character",
-              headerRight: () => <BackToHomeButton />,
+              headerRight: () => <HeaderHomeButton />,
             }}
           />
 
@@ -60,7 +87,7 @@ export default function App() {
             name="Vehicle"
             component={VehicleScreen}
             options={{
-              headerRight: () => <BackToHomeButton />,
+              headerRight: () => <HeaderHomeButton />,
             }}
           />
 
@@ -68,7 +95,7 @@ export default function App() {
             name="Starship"
             component={StarshipScreen}
             options={{
-              headerRight: () => <BackToHomeButton />,
+              headerRight: () => <HeaderHomeButton />,
             }}
           />
 
@@ -76,7 +103,8 @@ export default function App() {
             name="Film"
             component={FilmScreen}
             options={{
-              headerRight: () => <BackToHomeButton />,
+              headerTitle: "Movie",
+              headerRight: () => <HeaderHomeButton />,
             }}
           />
 
@@ -84,7 +112,7 @@ export default function App() {
             name="Planet"
             component={PlanetScreen}
             options={{
-              headerRight: () => <BackToHomeButton />,
+              headerRight: () => <HeaderHomeButton />,
             }}
           />
         </Stack.Navigator>
