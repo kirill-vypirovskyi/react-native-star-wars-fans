@@ -1,4 +1,3 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import { View, ScrollView, StyleSheet } from "react-native";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { Person } from "../types/Person";

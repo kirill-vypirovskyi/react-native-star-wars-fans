@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "test-task-native-star-wars",
-    "slug": "test-task-native-star-wars",
+    "slug": "star-wars-fans",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +15,30 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.arunomi.starwarsfans"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.arunomi.starwarsfans"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "94a562fc-9dc9-441e-a389-c51405652ce9"
+      }
+    },
+    "owner": "arunomi",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/94a562fc-9dc9-441e-a389-c51405652ce9"
     }
   }
 }

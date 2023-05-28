@@ -4,7 +4,7 @@ import { IconTrash } from "../../icons/IconTrash";
 import { useState } from "react";
 
 export const HeaderTrashButton = () => {
-  const { clearAllFavourites } = useFavouritesContext();
+  const { clearAllFavourites, favourites } = useFavouritesContext();
 
   const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -22,11 +22,13 @@ export const HeaderTrashButton = () => {
     setShowConfirmation(false);
   };
 
+  const buttonDisabled = favourites.length === 0;
+
   return (
     <>
-      <TouchableOpacity onPress={handleAction}>
+      <TouchableOpacity onPress={handleAction} disabled={buttonDisabled}>
         <View className="p-2">
-          <IconTrash />
+          <IconTrash color={ buttonDisabled ? '#f0f0f0' : '#000000'}/>
         </View>
       </TouchableOpacity>
 

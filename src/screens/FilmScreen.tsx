@@ -77,8 +77,8 @@ export const FilmScreen = ({ route }: Props) => {
   return (
     <ScrollView>
       <Container>
-        <View className="flex flex-row justify-between">
-          <Text className="text-3xl mb-3">{title}</Text>
+        <View className="flex flex-row justify-between flex-wrap mb-3">
+          <Text className="text-3xl">{title}</Text>
           <Text className={textClass}>{formatDate(release_date)}</Text>
         </View>
 

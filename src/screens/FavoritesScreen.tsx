@@ -1,14 +1,35 @@
-import { View, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableNativeFeedback,
+} from "react-native";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { Person } from "../types/Person";
-import { getPeople, getPersons, getPlanet, getSpeciesNames } from "../api/requests";
+import {
+  getPeople,
+  getPersons,
+  getPlanet,
+  getSpeciesNames,
+} from "../api/requests";
 import { PeopleTable } from "../components/PeopleTable/PeopleTable";
 import { useFavouritesContext } from "../context.ts/favouritesContext";
 import { Header } from "../components/Header";
 import { Search } from "../components/Search";
-import { emptyFunction, filterPeople, showToast, sortPeople } from "../helpers/functions";
+import {
+  emptyFunction,
+  filterPeople,
+  showToast,
+  sortPeople,
+} from "../helpers/functions";
 import { ErrorMessage } from "../types/ErrorMessage";
 import { SortOrder } from "../types/SortOrder";
+import { Container } from "../components/Container";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParams } from "../../App";
+import { Screen } from "../types/Screen";
 
 export const FavoritesScreen = () => {
   const [people, setPeople] = useState<Person[]>([]);
@@ -16,9 +37,9 @@ export const FavoritesScreen = () => {
   const [isLoading, setLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState(SortOrder.NONE);
 
-  const page = useRef(1);
-
   const { isStorageError, favourites } = useFavouritesContext();
+
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 
   if (isStorageError) {
     showToast(ErrorMessage.STORAGE);
@@ -28,7 +49,7 @@ export const FavoritesScreen = () => {
     setLoading(true);
 
     try {
-      const peopleUrls = favourites.map(fav => fav.url);
+      const peopleUrls = favourites.map((fav) => fav.url);
       const peopleFull = await getPersons(peopleUrls);
 
       const urlsToNames = await Promise.all(
@@ -58,12 +79,12 @@ export const FavoritesScreen = () => {
 
   useEffect(() => {
     downloadData();
-  }, []);
+  }, [favourites]);
 
   const filteredPeople = useMemo(
     () => filterPeople(people, query),
     [people, query]
-  )
+  );
 
   const sortedPeople = useMemo(
     () => sortPeople(filteredPeople, sortOrder),
@@ -76,23 +97,40 @@ export const FavoritesScreen = () => {
         <Header />
       </View>
 
-      <View style={styles.container} className="bg-white rounded p-3 m-3">
-        <Search
-          query={query}
-          onChange={handleQuery}
-          onSubmit={emptyFunction}
-        />
+      <Container>
+        {favourites.length !== 0 ? (
+          <>
+            <Search
+              query={query}
+              onChange={handleQuery}
+              onSubmit={emptyFunction}
+            />
 
-        <View>
-          <PeopleTable
-            sortOrder={sortOrder}
-            onOrderChange={setSortOrder}
-            people={sortedPeople}
-            isLoading={isLoading}
-          />
-        </View>
+            <View>
+              <PeopleTable
+                sortOrder={sortOrder}
+                onOrderChange={setSortOrder}
+                people={sortedPeople}
+                isLoading={isLoading}
+              />
+            </View>
+          </>
+        ) : (
+          <>
+            <Text className="text-2xl mb-6">No favourites yet.</Text>
 
-      </View>
+            <TouchableNativeFeedback
+              onPress={() => navigation.navigate(Screen.MAIN)}
+            >
+              <View className="flex flex-row">
+                <Text className="text-xl text-blue-900 underline">
+                  Go to the home page and add some.
+                </Text>
+              </View>
+            </TouchableNativeFeedback>
+          </>
+        )}
+      </Container>
     </ScrollView>
   );
 };

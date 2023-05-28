@@ -8,7 +8,7 @@ export const showToast = (message: ErrorMessage) => {
 };
 
 export const formatDate = (date: string): string => {
-  return date.slice(0, 4);
+  return date.split('-').reverse().join('.');
 };
 
 export const sortPeople = (
