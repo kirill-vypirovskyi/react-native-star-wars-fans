@@ -12,11 +12,11 @@ import { Container } from "../components/Container";
 import { InfoCard } from "../components/InfoCard";
 import { Person } from "../types/person";
 
-type Props = NativeStackScreenProps<StackParams, "Vehicle">;
+type Props = NativeStackScreenProps<StackParams, "Starship">;
 
 const textClass = "text-xl";
 
-export const VehicleScreen = ({ route }: Props) => {
+export const StarshipScreen = ({ route }: Props) => {
   const {
     films,
     cargo_capacity,
@@ -29,9 +29,10 @@ export const VehicleScreen = ({ route }: Props) => {
     model,
     passengers,
     pilots,
-    vehicle_class,
     name,
-  } = route.params.vehicle;
+    hyperdrive_rating,
+    starship_class,
+  } = route.params.starship;
 
   const [filmsFull, setFilmsFull] = useState<Film[]>([]);
   const [pilotsFull, setPilotsFull] = useState<Person[]>([]);
@@ -51,15 +52,18 @@ export const VehicleScreen = ({ route }: Props) => {
       }
     })();
   }, []);
+
   return (
     <ScrollView>
       <Container>
         <Text className="text-3xl mb-3">{name}</Text>
 
         <Text className={textClass}>
-          Model: {model}, {vehicle_class}
+          Model: {model}, {starship_class}
         </Text>
 
+        <Text className={textClass}>Hyperdrive rating: {hyperdrive_rating} </Text>
+        
         <Text className={textClass}>Price: {cost_in_credits}{cost_in_credits === 'unknown' ? '': ' GSC'} </Text>
 
         <Text className={textClass}>Manufacturer: {manufacturer}</Text>

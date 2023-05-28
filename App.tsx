@@ -9,6 +9,11 @@ import { Vehicle } from "./src/types/Vehicle";
 import { Starship } from "./src/types/Starship";
 import { Film } from "./src/types/Film";
 import { VehicleScreen } from "./src/screens/VehicleScreen";
+import { BackToHomeButton } from "./src/components/BackToHomeButton";
+import { StarshipScreen } from "./src/screens/StarshipScreen";
+import { FilmScreen } from "./src/screens/FilmScreen";
+import { PlanetScreen } from "./src/screens/PlanetScreen";
+import { Planet } from "./src/types/Planet";
 
 export type StackParams = {
   Main: undefined;
@@ -23,6 +28,9 @@ export type StackParams = {
   };
   Film: {
     film: Film;
+  };
+  Planet: {
+    planet: Planet;
   };
 };
 
@@ -42,13 +50,42 @@ export default function App() {
           <Stack.Screen
             name="Person"
             component={PersonScreen}
-            options={{ headerShown: false }}
+            options={{
+              headerTitle: "Character",
+              headerRight: () => <BackToHomeButton />,
+            }}
           />
 
           <Stack.Screen
             name="Vehicle"
             component={VehicleScreen}
-            options={{ headerShown: false }}
+            options={{
+              headerRight: () => <BackToHomeButton />,
+            }}
+          />
+
+          <Stack.Screen
+            name="Starship"
+            component={StarshipScreen}
+            options={{
+              headerRight: () => <BackToHomeButton />,
+            }}
+          />
+
+          <Stack.Screen
+            name="Film"
+            component={FilmScreen}
+            options={{
+              headerRight: () => <BackToHomeButton />,
+            }}
+          />
+
+          <Stack.Screen
+            name="Planet"
+            component={PlanetScreen}
+            options={{
+              headerRight: () => <BackToHomeButton />,
+            }}
           />
         </Stack.Navigator>
 

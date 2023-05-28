@@ -9,9 +9,10 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParams } from "../../App";
 import { Screen } from "../types/Screen";
+import { Planet } from "../types/Planet";
 
 type Props = {
-  objects: Vehicle[] | Person[] | Starship[] | Film[];
+  objects: Vehicle[] | Person[] | Starship[] | Film[] | Planet[];
   to: Screen;
   title?: string;
 };
@@ -30,7 +31,7 @@ export const InfoCard = ({ objects, to, title }: Props) => {
           return (
             <TouchableNativeFeedback
               key={object.created}
-              onPress={() => navigation.navigate(to as any, { [to.toLowerCase()]: object })}
+              onPress={() => navigation.push(to as any, { [to.toLowerCase()]: object })}
             >
               <View className="bg-gray-300 rounded py-1 px-3 m-1">
                 <Text>{object.name}</Text>

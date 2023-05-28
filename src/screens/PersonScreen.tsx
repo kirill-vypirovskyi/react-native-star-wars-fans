@@ -14,6 +14,7 @@ import { StackParams } from "../../App";
 import {
   getFilm,
   getFilms,
+  getSpeciesNames,
   getStarship,
   getStarships,
   getVehicle,
@@ -29,6 +30,9 @@ import { useNavigation } from "@react-navigation/native";
 import { Container } from "../components/Container";
 import { InfoCard } from "../components/InfoCard";
 import { Screen } from "../types/Screen";
+import { Specie } from "../types/specie";
+import { HearthButton } from "../components/HearthButton";
+import { useFavouritesContext } from "../context.ts/favouritesContext";
 
 type Props = NativeStackScreenProps<StackParams, "Person">;
 
@@ -45,17 +49,17 @@ export const PersonScreen = ({ route }: Props) => {
     skin_color,
     eye_color,
     hair_color,
-    species_names,
+    species,
     vehicles,
     starships,
     films,
+    url,
   } = route.params.person;
 
   const [vehiclesFull, setVehiclesFull] = useState<Vehicle[]>([]);
   const [starshipsFull, setStarshipsFull] = useState<Starship[]>([]);
   const [filmsFull, setFilmsFull] = useState<Film[]>([]);
-
-  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
+  const [speciesFull, setSpeciesFull] = useState<string[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -71,49 +75,72 @@ export const PersonScreen = ({ route }: Props) => {
         const fullFilms = await getFilms(films);
 
         setFilmsFull(fullFilms);
+
+        const speciesNames = await getSpeciesNames(species);
+
+        setSpeciesFull(speciesNames);
       } catch {
         showToast(ErrorMessage.REQUEST);
       }
     })();
   }, []);
 
+  const {
+    addFavourite,
+    removeFavourite,
+    isInFavourites,
+  } = useFavouritesContext();
+
+  const inFavourites = isInFavourites(url);
+
+  const handleFavourite = () => {
+    inFavourites ? removeFavourite(url) : addFavourite({url, gender})
+  }
+
   return (
-    <SafeAreaView className="flex-1 bg-gray-100">
-      <ScrollView>
-        <Container>
+    <ScrollView>
+      <Container>
+        <View className="flex flex-row justify-between">
           <Text className="text-3xl mb-3">{name}</Text>
+          <HearthButton
+            color="#f00"
+            size={20}
+            fill={inFavourites}
+            onClick={handleFavourite}
+          />
+        </View>
 
-          <Text className={textClass}>
-            Year of birth: {birth_year}, {homeworld_name}
-          </Text>
-        </Container>
+        <Text className={textClass}>
+          Year of birth: {birth_year}
+          {homeworld_name ? `, ${homeworld_name}` : ""}
+        </Text>
+      </Container>
 
-        <Container>
-          <Text className={`${textClass} font-bold`}>Body parameters:</Text>
+      <Container>
+        <Text className={`${textClass} font-bold`}>Body parameters:</Text>
 
-          <Text className={textClass}>Gender: {gender}</Text>
+        <Text className={textClass}>Gender: {gender}</Text>
 
-          <Text className={textClass}>Height: {height}cm </Text>
+        <Text className={textClass}>Height: {height}cm </Text>
 
-          <Text className={textClass}>Mass: {mass}kg</Text>
+        <Text className={textClass}>Mass: {mass}kg</Text>
 
-          <Text className={textClass}>Skin color: {skin_color}</Text>
+        <Text className={textClass}>Skin color: {skin_color}</Text>
 
-          <Text className={textClass}>Eyes color: {eye_color}</Text>
+        <Text className={textClass}>Eyes color: {eye_color}</Text>
 
-          <Text className={textClass}>Hair color: {hair_color}</Text>
+        <Text className={textClass}>Hair color: {hair_color}</Text>
 
-          <Text className={textClass}>
-            Species: {species_names.length === 0 ? "none" : species_names}
-          </Text>
-        </Container>
+        <Text className={textClass}>
+          Species: {speciesFull.length === 0 ? "none" : speciesFull}
+        </Text>
+      </Container>
 
-        <InfoCard objects={vehiclesFull} to={Screen.VEHICLE}/>
+      <InfoCard objects={vehiclesFull} to={Screen.VEHICLE} />
 
-        <InfoCard objects={starshipsFull} to={Screen.STARSHIP} />
+      <InfoCard objects={starshipsFull} to={Screen.STARSHIP} />
 
-        <InfoCard objects={filmsFull} to={Screen.FILM} />
-      </ScrollView>
-    </SafeAreaView>
+      <InfoCard objects={filmsFull} to={Screen.FILM} />
+    </ScrollView>
   );
 };

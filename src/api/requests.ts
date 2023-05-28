@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Planet } from "../types/planet";
+import { Planet } from "../types/Planet";
 import { Person } from "../types/person";
 import { requestResult } from "../types/requestResult";
 import { Specie } from "../types/specie";
@@ -24,14 +24,10 @@ export const getPeople = (page: number, query = "") => {
 };
 
 export const getPlanet = (url: string) => {
-  // console.log("sending request getPlanet");
-
   return get<Planet>(url);
 };
 
 export const getSpecie = (url: string) => {
-  // console.log("sending request getSpecie");
-
   return get<Specie>(url);
 };
 
@@ -80,3 +76,23 @@ export const getFilms = async (urls: string[]) => {
 
   return films.map(film => ({...film, name: film.title}));
 };
+
+export const getPerson = async (url: string) => {
+  return get<Person>(url);
+};
+
+export const getPersons = async (urls: string[]) => {
+  const people = await Promise.all(
+    urls.map((url) => getPerson(url))
+  );
+
+  return people;
+};
+
+export const getPlanets = async (urls: string[]) => {
+  const planets = await Promise.all(
+    urls.map((url) => getPlanet(url))
+  );
+
+  return planets;
+}
