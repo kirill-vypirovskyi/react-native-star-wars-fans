@@ -8,7 +8,7 @@ This project is a React Native application built using following technologies:
 
 It utilizes SWApi to fetch information about characters from the Star Wars universe.
 
-## Wath preview using Expo app!
+## Watсh preview using Expo app!
 
 <img src="https://github.com/kirill-vypirovskyi/react-native-star-wars-fans/assets/121887457/a7d86a5d-078e-4a58-8e12-619afdd4840c" alt="Image" width="200" height="200">
 
