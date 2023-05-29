@@ -42,7 +42,7 @@ export const InfoCard = ({ objects, to, title, isLoading }: Props) => {
               <TouchableNativeFeedback
                 key={object.created}
                 onPress={() =>
-                  navigation.push(to as any, { [to.toLowerCase()]: object })
+                  navigation.push(to as any, { object })
                 }
               >
                 <View className="bg-gray-300 rounded py-1 px-3 m-1">

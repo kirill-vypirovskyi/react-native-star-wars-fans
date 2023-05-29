@@ -21,6 +21,23 @@ export const getPeople = (page: number, query = "") => {
   );
 };
 
+export const getFullInfoPeople = async (people: Person[]) => {
+  const fullInfo = await Promise.all(
+    people.map(async (person) => {
+      const planet = await getPlanet(person.homeworld);
+      const species = await getSpeciesNames(person.species as string[]);
+  
+      return {
+        ...person,
+        homeworld_full: planet,
+        species_names: species,
+      };
+    })
+  );
+
+  return fullInfo;
+}
+
 export const getPlanet = (url: string) => {
   return get<Planet>(url);
 };
@@ -84,7 +101,9 @@ export const getPersons = async (urls: string[]) => {
     urls.map((url) => getPerson(url))
   );
 
-  return people;
+  const fullPeople = await getFullInfoPeople(people);
+
+  return fullPeople;
 };
 
 export const getPlanets = async (urls: string[]) => {
@@ -93,4 +112,5 @@ export const getPlanets = async (urls: string[]) => {
   );
 
   return planets;
-}
+};
+

@@ -23,19 +23,19 @@ export type StackParams = {
   Main: undefined;
   Favourites: undefined;
   Person: {
-    person: Person;
+    object: Person;
   };
   Vehicle: {
-    vehicle: Vehicle;
+    object: Vehicle;
   };
   Starship: {
-    starship: Starship;
+    object: Starship;
   };
   Film: {
-    film: Film;
+    object: Film;
   };
   Planet: {
-    planet: Planet;
+    object: Planet;
   };
 };
 

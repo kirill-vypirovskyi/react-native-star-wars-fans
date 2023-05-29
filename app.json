@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "test-task-native-star-wars",
-    "slug": "Star Wars Fan App (SWApi)",
+    "slug": "star-wars-fans",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

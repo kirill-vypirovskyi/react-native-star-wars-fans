@@ -29,7 +29,7 @@ export const PlanetScreen = ({ route }: Props) => {
     surface_water,
     residents,
     terrain,
-  } = route.params.planet;
+  } = route.params.object;
 
   const [charsFull, setCharsFull] = useState<Person[]>([]);
   const [filmsFull, setFilmsFull] = useState<Film[]>([]);

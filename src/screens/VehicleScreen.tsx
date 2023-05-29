@@ -31,7 +31,7 @@ export const VehicleScreen = ({ route }: Props) => {
     pilots,
     vehicle_class,
     name,
-  } = route.params.vehicle;
+  } = route.params.object;
 
   const [filmsFull, setFilmsFull] = useState<Film[]>([]);
   const [pilotsFull, setPilotsFull] = useState<Person[]>([]);

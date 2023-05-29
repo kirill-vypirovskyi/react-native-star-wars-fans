@@ -60,7 +60,7 @@ export const PeopleTableRow = ({ person, index }: Props) => {
       <View style={{ width: 324 }} className="flex justify-center">
         <PeopleTableCell>
           <TouchableNativeFeedback
-            onPress={() => navigation.push("Person", { person })}
+            onPress={() => navigation.push("Person", { object: person })}
           >
             <View className="bg-gray-200 rounded py-1 px-3 ">
               <Text>{person.name}</Text>
@@ -88,7 +88,7 @@ export const PeopleTableRow = ({ person, index }: Props) => {
         <TouchableOpacity
           className=" absolute top-0 bottom-0 left-0 right-0 opacity-10 "
           onPress={() =>
-            navigation.push("Planet", { planet: person.homeworld_full })
+            navigation.push("Planet", { object: person.homeworld_full })
           }
         />
       </View>

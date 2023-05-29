@@ -7,7 +7,7 @@ import {
   getStarships,
   getVehicles,
 } from "../api/requests";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { showToast } from "../helpers/functions";
 import { ErrorMessage } from "../types/ErrorMessage";
 import { Vehicle } from "../types/Vehicle";
@@ -42,7 +42,7 @@ export const PersonScreen = ({ route }: Props) => {
     starships,
     films,
     url,
-  } = route.params.person;
+  } = route.params.object;
 
   const [vehiclesFull, setVehiclesFull] = useState<Vehicle[]>([]);
   const [starshipsFull, setStarshipsFull] = useState<Starship[]>([]);
@@ -99,9 +99,9 @@ export const PersonScreen = ({ route }: Props) => {
 
   const inFavourites = isInFavourites(url);
 
-  const handleFavourite = () => {
+  const handleFavourite = useCallback(() => {
     inFavourites ? removeFavourite(url) : addFavourite({ url, gender });
-  };
+  }, [inFavourites, url]);
 
   return (
     <ScrollView>
@@ -123,7 +123,7 @@ export const PersonScreen = ({ route }: Props) => {
 
           <TouchableNativeFeedback
             onPress={() =>
-              navigation.push("Planet", { planet: homeworld_full })
+              navigation.push("Planet", { object: homeworld_full })
             }
           >
             <View className="bg-gray-200 rounded py-1 px-3 ">

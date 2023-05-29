@@ -73,10 +73,6 @@ export const FavoritesScreen = () => {
     }
   };
 
-  const handleQuery = (text: string) => {
-    setQuery(text);
-  };
-
   useEffect(() => {
     downloadData();
   }, [favourites]);
@@ -102,7 +98,7 @@ export const FavoritesScreen = () => {
           <>
             <Search
               query={query}
-              onChange={handleQuery}
+              onChange={setQuery}
               onSubmit={emptyFunction}
             />
 
@@ -134,16 +130,3 @@ export const FavoritesScreen = () => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
-  },
-});

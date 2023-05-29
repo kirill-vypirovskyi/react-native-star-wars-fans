@@ -1,7 +1,7 @@
 import { View, ScrollView, StyleSheet } from "react-native";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { Person } from "../types/Person";
-import { getPeople, getPlanet, getSpeciesNames } from "../api/requests";
+import { getFullInfoPeople, getPeople, getPlanet, getSpeciesNames } from "../api/requests";
 import { PeopleTable } from "../components/PeopleTable/PeopleTable";
 import { useFavouritesContext } from "../context.ts/favouritesContext";
 import { Header } from "../components/Header";
@@ -11,6 +11,7 @@ import { showToast, sortPeople } from "../helpers/functions";
 import { ErrorMessage } from "../types/ErrorMessage";
 import debounce from "lodash.debounce";
 import { SortOrder } from "../types/SortOrder";
+import { Container } from "../components/Container";
 
 export const MainScreen = () => {
   const [people, setPeople] = useState<Person[]>([]);
@@ -33,20 +34,9 @@ export const MainScreen = () => {
     try {
       const resultFromApi = await getPeople(page.current, query);
 
-      const urlsToNames = await Promise.all(
-        resultFromApi.results.map(async (person) => {
-          const planet = await getPlanet(person.homeworld);
-          const species = await getSpeciesNames(person.species as string[]);
+      const fullInfoPeople = await getFullInfoPeople(resultFromApi.results);
 
-          return {
-            ...person,
-            homeworld_full: planet,
-            species_names: species,
-          };
-        })
-      );
-
-      setPeople(urlsToNames);
+      setPeople(fullInfoPeople);
       setTotal(resultFromApi.count);
     } catch (error) {
       showToast(ErrorMessage.REQUEST);
@@ -98,7 +88,7 @@ export const MainScreen = () => {
         <Header />
       </View>
 
-      <View style={styles.container} className="bg-white rounded p-3 m-3">
+      <Container>
         <Search
           query={query}
           onChange={handleQuery}
@@ -121,20 +111,7 @@ export const MainScreen = () => {
           onPageChange={handlePageChange}
           isLoading={isLoading}
         />
-      </View>
+      </Container>
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    elevation: 5,
-  },
-});

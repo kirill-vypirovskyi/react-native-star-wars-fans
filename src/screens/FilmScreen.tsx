@@ -40,7 +40,7 @@ export const FilmScreen = ({ route }: Props) => {
     release_date,
     opening_crawl,
     planets,
-  } = route.params.film;
+  } = route.params.object;
 
   const [charsFull, setCharsFull] = useState<Person[]>([]);
   const [vehiclesFull, setVehiclesFull] = useState<Vehicle[]>([]);

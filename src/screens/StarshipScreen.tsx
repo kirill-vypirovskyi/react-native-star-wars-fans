@@ -32,7 +32,7 @@ export const StarshipScreen = ({ route }: Props) => {
     name,
     hyperdrive_rating,
     starship_class,
-  } = route.params.starship;
+  } = route.params.object;
 
   const [filmsFull, setFilmsFull] = useState<Film[]>([]);
   const [pilotsFull, setPilotsFull] = useState<Person[]>([]);
