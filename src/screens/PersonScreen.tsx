@@ -1,5 +1,8 @@
 import { View, Text, ScrollView, TouchableNativeFeedback } from "react-native";
-import { NativeStackNavigationProp, NativeStackScreenProps } from "@react-navigation/native-stack";
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
 import { StackParams } from "../../App";
 import {
   getFilms,
@@ -8,7 +11,7 @@ import {
   getVehicles,
 } from "../api/requests";
 import { useCallback, useEffect, useState } from "react";
-import { showToast } from "../helpers/functions";
+import { getGenderIcon, showToast } from "../helpers/functions";
 import { ErrorMessage } from "../types/ErrorMessage";
 import { Vehicle } from "../types/Vehicle";
 import { Starship } from "../types/Starship";
@@ -108,12 +111,15 @@ export const PersonScreen = ({ route }: Props) => {
       <Container>
         <View className="flex flex-row justify-between">
           <Text className="text-3xl mb-3">{name}</Text>
-          <HearthButton
-            color="#f00"
-            size={20}
-            fill={inFavourites}
-            onClick={handleFavourite}
-          />
+
+          <View className="rounded-full">
+            <HearthButton
+              color="#f00"
+              size={20}
+              fill={inFavourites}
+              onClick={handleFavourite}
+            />
+          </View>
         </View>
 
         <View className="flex flex-row flex-wrap items-center justify-between">
@@ -126,7 +132,7 @@ export const PersonScreen = ({ route }: Props) => {
               navigation.push("Planet", { object: homeworld_full })
             }
           >
-            <View className="bg-gray-200 rounded py-1 px-3 ">
+            <View className="bg-gray-200 rounded py-1 px-3 border-b-2 border-b-gray-500">
               <Text className={textClass}>{homeworld_full.name}</Text>
             </View>
           </TouchableNativeFeedback>
@@ -136,7 +142,10 @@ export const PersonScreen = ({ route }: Props) => {
       <Container>
         <Text className={`${textClass} font-bold mb-2`}>Body parameters:</Text>
 
-        <InfoTableRow title="Gender" value={gender} />
+        <InfoTableRow
+          title="Gender"
+          value={getGenderIcon(gender) + " " + gender}
+        />
         <InfoTableRow title="Height" value={height + "cm"} />
         <InfoTableRow title="Mass" value={mass + "kg"} />
         <InfoTableRow title="Skin color" value={skin_color} />

@@ -34,4 +34,17 @@ export const filterPeople = (people: Person[], query: string) => {
   );
 };
 
+export const getGenderIcon = (gender: string) => {
+  switch (gender) {
+    case 'male':
+      return '♂️';
+    case 'female':
+      return '♀️'
+    case 'n/a':
+      return '🤖'
+    default:
+      return '🤷‍♂️';
+  }
+}
+
 export const emptyFunction = () => {};

@@ -45,7 +45,7 @@ export const InfoCard = ({ objects, to, title, isLoading }: Props) => {
                   navigation.push(to as any, { object })
                 }
               >
-                <View className="bg-gray-300 rounded py-1 px-3 m-1">
+                <View className="bg-gray-300 rounded py-1 px-3 m-1 border-b-2 border-b-gray-500">
                   <Text>{object.name}</Text>
                 </View>
               </TouchableNativeFeedback>
@@ -54,7 +54,7 @@ export const InfoCard = ({ objects, to, title, isLoading }: Props) => {
         </View>
       ) : (
         <View>
-          <Text>No {(title ?? `${to}s`).toLowerCase()}</Text>
+          <Text>No {(title ? title.slice(0, -1) : `${to}s`).toLowerCase()}</Text>
         </View>
       )}
 

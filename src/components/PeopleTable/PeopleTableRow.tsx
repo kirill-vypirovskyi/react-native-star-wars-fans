@@ -11,6 +11,7 @@ import { PeopleTableCell } from "./PeopleTableCell";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParams } from "../../../App";
+import { getGenderIcon } from "../../helpers/functions";
 
 type Props = {
   person: Person;
@@ -62,7 +63,7 @@ export const PeopleTableRow = ({ person, index }: Props) => {
           <TouchableNativeFeedback
             onPress={() => navigation.push("Person", { object: person })}
           >
-            <View className="bg-gray-200 rounded py-1 px-3 ">
+            <View className="bg-gray-200 rounded py-1 px-3 border-b-2 border-b-gray-500">
               <Text>{person.name}</Text>
             </View>
           </TouchableNativeFeedback>
@@ -74,13 +75,13 @@ export const PeopleTableRow = ({ person, index }: Props) => {
       </View>
 
       <View style={{ width: 150 }} className="flex justify-center">
-        <PeopleTableCell>{person.gender}</PeopleTableCell>
+        <PeopleTableCell>{getGenderIcon(person.gender) + ' ' + person.gender}</PeopleTableCell>
       </View>
 
       <View style={{ width: 150 }} className="flex justify-center">
         <PeopleTableCell>
 
-            <View className="bg-gray-200 rounded py-1 px-3 ">
+            <View className="bg-gray-200 rounded py-1 px-3 border-b-2 border-b-gray-500">
               <Text>{person.homeworld_full.name}</Text>
             </View>
         </PeopleTableCell>
