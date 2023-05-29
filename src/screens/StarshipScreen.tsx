@@ -88,7 +88,7 @@ export const StarshipScreen = ({ route }: Props) => {
         <InfoTableRow title="Length" value={length + "m"} />
         <InfoTableRow title="Passengers" value={passengers} />
         <InfoTableRow
-          title="Max speed:"
+          title="Max speed"
           value={max_atmosphering_speed + "kmh"}
         />
         <InfoTableRow title="Passengers" value={passengers} />

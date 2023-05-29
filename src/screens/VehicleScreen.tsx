@@ -74,7 +74,7 @@ export const VehicleScreen = ({ route }: Props) => {
       <Container>
         <Text className={`${textClass} font-bold`}>Specs:</Text>
         <InfoTableRow title="Cargo capacity" value={cargo_capacity} />
-        <InfoTableRow title="cargo_capacity" value={consumables} />
+        <InfoTableRow title="Consumables" value={consumables} />
         <InfoTableRow title="Length" value={length + "m"} />
 
         <InfoTableRow
@@ -82,7 +82,7 @@ export const VehicleScreen = ({ route }: Props) => {
           value={max_atmosphering_speed + "kmh"}
         />
 
-        <InfoTableRow title="passengers" value={passengers} />
+        <InfoTableRow title="Passengers" value={passengers} />
         <InfoTableRow title="Crew" value={crew} last />
       </Container>
 

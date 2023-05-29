@@ -1,5 +1,5 @@
-import { View, Text, ScrollView } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { View, Text, ScrollView, TouchableNativeFeedback } from "react-native";
+import { NativeStackNavigationProp, NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackParams } from "../../App";
 import {
   getFilms,
@@ -20,6 +20,7 @@ import { HearthButton } from "../components/HearthButton";
 import { useFavouritesContext } from "../context.ts/favouritesContext";
 import { InfoTableRow } from "../components/InfoTableRow";
 import { Loader } from "../components/Loader";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = NativeStackScreenProps<StackParams, "Person">;
 
@@ -52,6 +53,8 @@ export const PersonScreen = ({ route }: Props) => {
   const [areStarshipsLoading, setStarshipsLoading] = useState(false);
   const [areFilmsLoading, setFilmsLoading] = useState(false);
   const [areSpeciesLoading, setSpeciesLoading] = useState(false);
+
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 
   useEffect(() => {
     (async () => {
@@ -113,10 +116,21 @@ export const PersonScreen = ({ route }: Props) => {
           />
         </View>
 
-        <Text className={textClass}>
-          Year of birth: {birth_year}
-          {homeworld_full ? `, ${homeworld_full.name}` : ""}
-        </Text>
+        <View className="flex flex-row flex-wrap items-center justify-between">
+          <Text className={`${textClass} mr-2`}>
+            Year of birth: {birth_year}
+          </Text>
+
+          <TouchableNativeFeedback
+            onPress={() =>
+              navigation.push("Planet", { planet: homeworld_full })
+            }
+          >
+            <View className="bg-gray-200 rounded py-1 px-3 ">
+              <Text className={textClass}>{homeworld_full.name}</Text>
+            </View>
+          </TouchableNativeFeedback>
+        </View>
       </Container>
 
       <Container>
