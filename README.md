@@ -10,7 +10,7 @@ It utilizes SWApi to fetch information about characters from the Star Wars unive
 
 ## Watсh preview using Expo app!
 
-<img src="https://github.com/kirill-vypirovskyi/react-native-star-wars-fans/assets/121887457/a7d86a5d-078e-4a58-8e12-619afdd4840c" alt="Image" width="200" height="200">
+<img src="https://github.com/kirill-vypirovskyi/react-native-star-wars-fans/assets/121887457/f189f0c7-2259-48c6-857c-db55a5ccef43" alt="Image" width="200" height="200">
 
 Or you can copy this url: exp://u.expo.dev/update/8bc352ce-f247-4afd-8d81-a00dcf0f9062
 
