@@ -24,11 +24,11 @@ export const PeopleTableRow = ({ person, index }: Props) => {
 
   const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 
+  const isFavourite = isInFavourites(person.url);
+
   const handleHeartButton = ({ url, gender }: Person, isFavourite: boolean) => {
     isFavourite ? removeFavourite(url) : addFavourite({ url, gender });
   };
-
-  const isFavourite = isInFavourites(person.url);
 
   return (
     <View

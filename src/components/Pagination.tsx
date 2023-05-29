@@ -6,19 +6,20 @@ import RoundedButton from "./RoundedButton";
 
 type Props = {
   total: number;
-  startItem: number;
-  endItem: number;
+  page: number;
   onPageChange: (page: "prev" | "next") => void;
   isLoading: boolean;
 };
 
 export const Pagination = ({
-  startItem,
-  endItem,
+  page,
   total,
   onPageChange,
   isLoading,
 }: Props) => {
+
+  const startItem = (page - 1) * 10 + 1;
+  const endItem = Math.min(page * 10, total);
 
   const isFirstPage = startItem === 1;
   const isLastPage = endItem === total;

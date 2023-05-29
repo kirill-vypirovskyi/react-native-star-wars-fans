@@ -1,5 +1,5 @@
 import { View, ScrollView, StyleSheet } from "react-native";
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { Person } from "../types/Person";
 import { getFullInfoPeople, getPeople, getPlanet, getSpeciesNames } from "../api/requests";
 import { PeopleTable } from "../components/PeopleTable/PeopleTable";
@@ -59,8 +59,6 @@ export const MainScreen = () => {
     downloadData(query);
   }, []);
 
-  const startItem = (page.current - 1) * 10 + 1;
-  const endItem = Math.min(page.current * 10, total);
   const isLastPage = page.current >= Math.ceil(total / 10);
 
   const handlePageChange = (whichPage: "next" | "prev") => {
@@ -106,8 +104,7 @@ export const MainScreen = () => {
 
         <Pagination
           total={total}
-          startItem={startItem}
-          endItem={endItem}
+          page={page.current}
           onPageChange={handlePageChange}
           isLoading={isLoading}
         />

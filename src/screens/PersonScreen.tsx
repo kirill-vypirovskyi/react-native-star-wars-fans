@@ -102,9 +102,9 @@ export const PersonScreen = ({ route }: Props) => {
 
   const inFavourites = isInFavourites(url);
 
-  const handleFavourite = useCallback(() => {
-    inFavourites ? removeFavourite(url) : addFavourite({ url, gender });
-  }, [inFavourites, url]);
+  const handleFavourite = () => {
+    isInFavourites(url) ? removeFavourite(url) : addFavourite({ url, gender });
+  };
 
   return (
     <ScrollView>
