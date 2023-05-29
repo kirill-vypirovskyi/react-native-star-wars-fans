@@ -2,6 +2,8 @@
 
 This project is a React Native application built using following technologies:
 - Expo
+- React Native
+- React Hooks
 - Nativewind (Tailwind CSS)
 - React Navigation
 - AsyncStorage. 
@@ -13,6 +15,8 @@ It utilizes SWApi to fetch information about characters from the Star Wars unive
 <img src="https://github.com/kirill-vypirovskyi/react-native-star-wars-fans/assets/121887457/f189f0c7-2259-48c6-857c-db55a5ccef43" alt="Image" width="200" height="200">
 
 Or you can copy this url: exp://u.expo.dev/update/8bc352ce-f247-4afd-8d81-a00dcf0f9062
+
+![ezgif com-optimize (2)](https://github.com/kirill-vypirovskyi/react-native-star-wars-fans/assets/121887457/ef832e53-1d66-4c2f-a804-5b865951afd8)
 
 ## Features
 
